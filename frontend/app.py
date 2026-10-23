@@ -1,7 +1,10 @@
+import logging
+
 from flask import Flask, jsonify
 import psycopg2
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # Database connection settings
 db_config = {
@@ -34,8 +37,9 @@ def get_data():
         # Return the data as JSON
         return jsonify(rows)
 
-    except Exception as e:
-        return jsonify({'error': str(e)})
+    except Exception:
+        app.logger.exception('Failed to fetch data from the database')
+        return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5005)
