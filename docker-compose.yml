@@ -15,7 +15,7 @@ services:
       - "5432:5432"
 
   jupyter:
-    image: jupyter/base-notebook:latest
+    image: quay.io/jupyter/base-notebook:2026-10-23
     container_name: jupyter_notebook
     environment:
       JUPYTER_ENABLE_LAB: "yes"
