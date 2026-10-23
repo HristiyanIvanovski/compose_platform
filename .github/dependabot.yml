@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    groups:
+      pip-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+  - package-ecosystem: "docker"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    groups:
+      docker-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      compose-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
