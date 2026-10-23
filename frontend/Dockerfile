@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
-RUN pip install -r requirements.txt
+# Install dependencies (pip >= 26.2.2 ships certifi 2026.10.19 without the compromised emSign CA)
+RUN pip install --no-cache-dir --upgrade "pip>=26.2.2" && pip install -r requirements.txt
 
 # Expose the port the app runs on
 EXPOSE 5005
