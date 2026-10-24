@@ -1,4 +1,5 @@
 import logging
+import os
 
 from flask import Flask, jsonify
 import psycopg2
@@ -7,10 +8,13 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Database connection settings
+if not os.environ.get('POSTGRES_PASSWORD'):
+    raise RuntimeError('Missing required environment variable POSTGRES_PASSWORD (see .env.example).')
+
 db_config = {
-    'dbname': 'mydatabase',
-    'user': 'user',
-    'password': 'password',
+    'dbname': os.environ.get('POSTGRES_DB', 'mydatabase'),
+    'user': os.environ.get('POSTGRES_USER', 'user'),
+    'password': os.environ['POSTGRES_PASSWORD'],
     'host': 'db',
     'port': 5432
 }

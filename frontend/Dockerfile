@@ -17,6 +17,10 @@ RUN apt-get update && apt-get install -y \
 # Install dependencies (pip >= 26.2.2 ships certifi 2026.10.19 without the compromised emSign CA)
 RUN pip install --no-cache-dir --upgrade "pip>=26.2.2" && pip install -r requirements.txt
 
+# Run as an unprivileged user
+RUN useradd --create-home --uid 10001 appuser
+USER appuser
+
 # Expose the port the app runs on
 EXPOSE 5005
 
